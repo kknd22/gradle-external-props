@@ -1,3 +1,7 @@
+// --
+// -- load a external properties file defined by the property externalPropFileLocation 
+// -- if property externalPropFileLocation, then this is a noop
+// --
 rootProject.ext.loadExtraProperties = { ->
 	if (rootProject.hasProperty("externalPropFileLocation")) {
 	    def props = new Properties()
@@ -11,3 +15,5 @@ rootProject.ext.loadExtraProperties = { ->
 		println "\n---> externalPropLocation not defined, skipped loading external properties...\n"
 	}
 }
+
+loadExtraProperties()
