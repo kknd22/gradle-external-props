@@ -1,0 +1,13 @@
+rootProject.ext.loadExtraProperties = { ->
+	if (rootProject.hasProperty("externalPropFileLocation")) {
+	    def props = new Properties()
+	    props.load(new FileInputStream(rootProject.externalPropFileLocation))
+
+	    props.each { key, val ->
+	        project.ext.set(key, val)
+	    }
+	} else {
+		//logger.lifecycle "\n---> externalPropLocation not defined, skipped loading external properties...\n"
+		println "\n---> externalPropLocation not defined, skipped loading external properties...\n"
+	}
+}

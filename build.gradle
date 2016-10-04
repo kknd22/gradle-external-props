@@ -1,0 +1,8 @@
+apply plugin: 'base'
+
+apply from: 'to_be_include.gradle'
+
+loadExtraProperties()
+
+println "myProp is [  $myProp  ]"
+//println "demoProp  [  $demoProp  ]"
