@@ -2,13 +2,18 @@
 // -- load a external properties file defined by the property externalPropFileLocation 
 // -- if property externalPropFileLocation, then this is a noop
 // --
+def SYS_PROP_PREFIX = 'systemProp.'
+
 rootProject.ext.loadExtraProperties = { ->
 	if (rootProject.hasProperty("externalPropFileLocation")) {
 	    def props = new Properties()
 	    props.load(new FileInputStream(rootProject.externalPropFileLocation))
-
 	    props.each { key, val ->
-	        project.ext.set(key, val)
+	    	if (key.startsWith(SYS_PROP_PREFIX)) {
+				System.properties.setProperty(key-SYS_PROP_PREFIX, val);
+	    	} else {
+	        	project.ext.set(key, val)
+	        }
 	    }
 	} else {
 		//logger.lifecycle "\n---> externalPropLocation not defined, skipped loading external properties...\n"
@@ -17,3 +22,4 @@ rootProject.ext.loadExtraProperties = { ->
 }
 
 loadExtraProperties()
+
